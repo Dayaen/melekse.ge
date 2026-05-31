@@ -1,6 +1,0 @@
-{
-  "name": "ვეფხისტყაოსანი",
-  "description": "შოთა რუსთაველის „ვეფხისტყაოსნის“ ინტერაქტიული ციფრული გამოცემა ორიგინალით, თანამედროვე პარაფრაზითა და ლექსიკონით.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
