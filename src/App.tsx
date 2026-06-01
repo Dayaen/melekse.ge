@@ -463,7 +463,7 @@ export default function App() {
                     <div className={`flex-1 space-y-3 relative ${showParaphraseMap[stanza.id] ? "hidden lg:block" : "block"}`}>
                       <div className="flex items-center justify-between select-none">
                         <span className="text-xs font-mono font-bold bg-[#9E1218]/10 text-[#9E1218] px-2.5 py-0.5 rounded-md">
-                          {stanza.id}
+                          {stanza.displayId !== undefined ? stanza.displayId : stanza.id}
                         </span>
                         <button
                           onClick={(e) => {
@@ -477,29 +477,31 @@ export default function App() {
                       </div>
                       
                       <div 
-                        className="font-serif-geo space-y-2.5 text-[10px] sm:text-[12px] md:text-[14px]"
+                        className="font-serif-geo text-[10px] sm:text-[12px] md:text-[14px] flex flex-col items-start w-full pl-3 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-12"
                         style={{ lineHeight: "2.1" }}
                       >
-                        {stanza.originalLines.map((line, lIdx) => (
-                          <div key={lIdx} className="block relative pl-1 whitespace-normal text-stone-900 break-words leading-relaxed lg:leading-[2.1]">
-                            {line.map((token, tIdx) => {
-                               if (lIdx === 0 && tIdx === 0) {
-                                 const firstChar = token.text.charAt(0);
-                                 const restText = token.text.slice(1);
-                                 const slicedToken = { ...token, text: restText };
-                                 return (
-                                   <span key={tIdx} className="inline">
-                                     <span className="text-[#9E1218] font-extrabold select-none inline font-serif-geo">
-                                       {firstChar}
+                        <div className="space-y-2.5 text-left w-full max-w-full">
+                          {stanza.originalLines.map((line, lIdx) => (
+                            <div key={lIdx} className="block relative whitespace-normal text-stone-900 break-words leading-relaxed lg:leading-[2.1]">
+                              {line.map((token, tIdx) => {
+                                 if (lIdx === 0 && tIdx === 0) {
+                                   const firstChar = token.text.charAt(0);
+                                   const restText = token.text.slice(1);
+                                   const slicedToken = { ...token, text: restText };
+                                   return (
+                                     <span key={tIdx} className="inline">
+                                       <span className="text-[#9E1218] font-extrabold select-none inline font-serif-geo">
+                                         {firstChar}
+                                       </span>
+                                       <WordTip token={slicedToken} />
                                      </span>
-                                     <WordTip token={slicedToken} />
-                                   </span>
-                                 );
-                               }
-                               return <WordTip key={tIdx} token={token} />;
-                            })}
-                          </div>
-                        ))}
+                                   );
+                                 }
+                                 return <WordTip key={tIdx} token={token} />;
+                              })}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -511,7 +513,7 @@ export default function App() {
                       {/* Empty alignment spacer to align with the left stanza number badge */}
                       <div className="h-6 flex items-center justify-between select-none">
                         <span className="lg:hidden text-xs font-mono font-bold bg-stone-500/15 text-stone-700 px-2.5 py-0.5 rounded-md">
-                          {stanza.id}
+                          {stanza.displayId !== undefined ? stanza.displayId : stanza.id}
                         </span>
                         <button
                           onClick={(e) => {
@@ -520,19 +522,21 @@ export default function App() {
                           }}
                           className="lg:hidden text-[11px] px-3 py-1 rounded-lg font-sans-geo font-bold shadow-xs transition-all duration-300 bg-stone-500/15 hover:bg-stone-500/25 text-stone-850 border border-stone-500/20"
                         >
-                          კუპლეტი ↩
+                          ორიგინალი ↩
                         </button>
                       </div>
 
                       <div 
-                        className="font-sans-geo font-light italic space-y-2.5 text-[9.5px] sm:text-[11px] md:text-[13px]"
+                        className="font-sans-geo font-light italic text-[9.5px] sm:text-[11px] md:text-[13px] flex flex-col items-start w-full pl-3 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-12"
                         style={{ lineHeight: "2.0", color: theme === "parchment" ? "#44403c" : undefined }}
                       >
-                        {stanza.paraphraseLines.map((line, lIdx) => (
-                          <div key={lIdx} className="block leading-relaxed whitespace-normal break-words">
-                            {line}
-                          </div>
-                        ))}
+                        <div className="space-y-2.5 text-left w-full max-w-full">
+                          {stanza.paraphraseLines.map((line, lIdx) => (
+                            <div key={lIdx} className="block leading-relaxed whitespace-normal break-words">
+                              {line}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </motion.div>

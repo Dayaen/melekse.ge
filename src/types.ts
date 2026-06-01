@@ -7,6 +7,7 @@ export interface Stanza {
   id: number;
   originalLines: WordToken[][];
   paraphraseLines: string[];
+  displayId?: string | number;
 }
 
 export interface Chapter {
